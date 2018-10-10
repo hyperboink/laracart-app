@@ -1,0 +1,41 @@
+
+
+
+.closeBtn{
+	position: absolute;
+    right: 10px;
+    top: -6px;
+    color: #aaa;
+    font-size: 30px;
+}	
+.closeBtn:hover,.closeBtn:focus{text-decoration:none;    color: #aaa;}
+.cart-panel{position:relative;}
+.totalPrice{    font-size: 22px; padding: 0 0 0 10px; font-weight: 700;}
+
+.thumbnail-cartpage{border:0;    padding-top: 0; margin: 0;   background: none;}
+
+.totalPrice td{}
+.totalPrice td h3{margin: 5px 0 0 0;}
+.qty-input{min-width:60px;text-align:center;}
+.btn-number{min-width:40px;}
+.table-hover>tbody>tr:hover{background:none;}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{vertical-align: middle;}
+
+.cc-amount{    margin: 0px 15px 10px 15px; padding: 5px 0;}
+.cc-amount hr{margin:0;}
+.cc-amount strong{
+	padding: 10px 0;
+    display: block;
+    font-size: 16px;
+}
+
+.radio-paypal{}
+a.checkout-btn{display:none;}
+
+.checkout-btn{min-width: 111px;}
+
+
+
+
+
