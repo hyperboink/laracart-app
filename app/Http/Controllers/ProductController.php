@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\Cart\CartRepository;
 use App\Product;
 use App\Cart;
 use Session;
@@ -11,82 +12,73 @@ use Session;
 class ProductController extends Controller
 {
     
+	public $cartRepo;
 
-	public function index(){
-
+	public function __construct(CartRepository $cartRepository)
+	{
+		$this->cartRepo = $cartRepository;
 	}
 
-	public function shop(){
-
+	public function shop()
+	{
 		$products = Product::all();
+
 		return view('shop.index',compact('products'));
 	}
 
 
-	public function addCart(Request $request, $id){
+	public function addCart(Request $request, $id)
+	{
+		$this->cartRepo->add($request, $id);
 
-		$product = Product::find($id);
-		$oldCart = Session::has('cart')?Session::get('cart'):null;
-		$cart = new Cart($oldCart);
-		$cart->add($product, $product->id);
-
-		$request->session()->put('cart',$cart);
-		//dd($request->session()->get('cart'));
 		return redirect()->route('shop.index');
 	}
 
-	public function getCart(){
+	public function getCart()
+	{
 		if(!Session::has('cart')){
 			return view('shop.cartPage');
 		}
-		$oldCart = Session::get('cart');
-		$cart = new Cart($oldCart);
-		//return 'wee';
-		return view('shop.cartPage', ['products'=>$cart->items, 'totalPrice'=>$cart->totalPrice]);
+
+		$cart = $this->cartRepo->get();
+
+		return view('shop.cartPage', [
+			'products' => $cart->items,
+			'totalPrice' => $cart->totalPrice
+		]);
 
 	}
 
-	public function cartAddByOne(Request $request, $id){
-		$product = Product::find($id);
-		$oldCart = Session::has('cart')?Session::get('cart'):null;
-		$cart = new Cart($oldCart);
-		$cart->add($product, $product->id);
-
-		$request->session()->put('cart',$cart);
+	public function cartAddByOne(Request $request, $id)
+	{
+		$this->cartRepo->add($request, $id);
 
 		return redirect()->route('product.cartPage');
 	}
 
-	public function cartReduceByOne($id){
-		$oldCart = Session::has('cart')?Session::get('cart'):null;
-		$cart = new Cart($oldCart);
-		$cart->reduceByOne($id);
-
-		Session::put('cart',$cart);
+	public function cartReduceByOne($id)
+	{
+		$this->cartRepo->reduceByOne($id);
 
 		return redirect()->route('product.cartPage');
 	}
 
-	public function cartRemove($id){
-		$oldCart = Session::has('cart')?Session::get('cart'):null;
-		$cart = new Cart($oldCart);
-		$cart->removeItem($id);
-
-		Session::put('cart',$cart);
+	public function cartRemove($id)
+	{
+		$this->cartRepo->remove($id);
 
 		return redirect()->route('product.cartPage');
 	}
 
 	
 
-	public function updateCart(Request $request){
-		$oldCart = Session::has('cart')?Session::get('cart'):null;
+	public function updateCart(Request $request)
+	{
+		/*$oldCart = Session::has('cart')?Session::get('cart'):null;
 		$cart = new Cart($oldCart);
-		$cart->add($product, $product->id);
+		$cart->updateItem($product, $product->id);*/
 	}
 
-
-	
 
 
 
