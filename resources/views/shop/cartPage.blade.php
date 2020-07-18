@@ -62,7 +62,7 @@
 		                    </td>
 		                    <td class="col-sm-1 col-md-1 text-center"><strong>${{$product['item']['price']}}</strong></td>
 		                    <td class="col-sm-1 col-md-1 text-center"><strong>${{$product['price']}}</strong></td>
-		                    <td class="col-sm-1 col-md-1">
+		                    <td class="col-sm-1 col-md-1 text-center">
 			                    <a href="{{route('product.removeCart',['id'=>$product['item']['id']])}}" class="btn btn-danger">
 			                        <span class="glyphicon glyphicon-remove"></span>
 			                         Remove

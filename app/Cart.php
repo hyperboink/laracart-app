@@ -2,14 +2,14 @@
 
 namespace App;
 
-
 class Cart
 {
 	public $items = [];
 	public $totalQty = 0;
 	public $totalPrice = 0;
 
-	public function __construct($cart){
+	public function __construct($cart)
+	{
 		if($cart){
 			$this->items = $cart->items;
 			$this->totalQty = $cart->totalQty;
@@ -17,8 +17,8 @@ class Cart
 		}
 	}
 
-	public function add($item, $id){
-
+	public function add($item, $id)
+	{
 		$storedItem = [
 			'item_id' => $id,
 			'qty' => '0',
@@ -41,8 +41,8 @@ class Cart
 
 	}
 
-	public function reduceByOne($id){
-
+	public function reduceByOne($id)
+	{
 		$key = array_search($id, array_column($this->items, 'item_id'));
 
 		$this->items[$key]['qty']--;
@@ -56,8 +56,8 @@ class Cart
 
 	}
 
-	public function removeItem($id){
-
+	public function removeItem($id)
+	{
 		$key = array_search($id, array_column($this->items, 'item_id'));
 
 		$this->totalQty -= $this->items[$key]['qty'];

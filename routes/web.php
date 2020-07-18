@@ -20,6 +20,8 @@ Route::get('/',[
 
 //Cart
 
+Route::get('/api/cart', 'ProductController@apiCart');
+
 Route::get('/your-cart', [
 	'uses'=>'ProductController@getCart',
 	'as'=>'product.cartPage'

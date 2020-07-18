@@ -10,17 +10,18 @@ use App\Http\Requests;
 
 class ProfileController extends Controller
 {
-    
-	public function index(){
+	public function index()
+	{
 		return view('user.profile');
 	}
 
-	public function signin(){
+	public function signin()
+	{
 		return view('user.signin');
 	}
 
-	public function postSignin(Request $request){
-
+	public function postSignin(Request $request)
+	{
 		$this->validate($request,[
 			'email'=>'email|required',
 			'password'=>'|required|min:3'
@@ -30,15 +31,15 @@ class ProfileController extends Controller
 			return redirect()->route('user.profile');
 		}
 		return redirect()->back()->with('login_message','Please check your email and password.');
-
 	}
 
-	public function signup(){
+	public function signup()
+	{
 		return view('user.signup');
 	}
 
-	public function postSignup(Request $request){
-	
+	public function postSignup(Request $request)
+	{
 		$this->validate($request,[
 			'email'=>'email|required|unique:users',
 			'password'=>'|required|min:3'
@@ -53,10 +54,10 @@ class ProfileController extends Controller
 		Auth::login($user);
 
 		return redirect()->route('user.profile')->with('message','Successfully created an account. Try to log in.');
-
 	}
 
-	public function logout(){
+	public function logout()
+	{
 		Auth::logout();
 		return redirect()->route('user.signin');
 	}

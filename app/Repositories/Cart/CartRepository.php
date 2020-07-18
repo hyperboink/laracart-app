@@ -53,8 +53,8 @@ class CartRepository implements CartRepositoryInterface
 
 	public function updateItem($qty, $id)
 	{
-		/*$cart = $this->cart();
-		$cart->updateItem($product, $product->id);*/
+		$cart = $this->cart();
+		$cart->updateItem($product, $product->id);
 	}
 
 	private function cart(){

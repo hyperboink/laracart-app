@@ -8,10 +8,8 @@ use App\Product;
 use App\Cart;
 use Session;
 
-
 class ProductController extends Controller
 {
-    
 	public $cartRepo;
 
 	public function __construct(CartRepository $cartRepository)
@@ -36,11 +34,11 @@ class ProductController extends Controller
 
 	public function getCart()
 	{
-		if(!Session::has('cart')){
-			return view('shop.cartPage');
-		}
-
 		$cart = $this->cartRepo->get();
+
+		if(!Session::has('cart') || count($cart->items) <= 0){
+			return redirect()->route('shop.index');
+		}
 
 		return view('shop.cartPage', [
 			'products' => $cart->items,
@@ -70,15 +68,25 @@ class ProductController extends Controller
 		return redirect()->route('product.cartPage');
 	}
 
-	
-
 	public function updateCart(Request $request)
 	{
-		/*$oldCart = Session::has('cart')?Session::get('cart'):null;
-		$cart = new Cart($oldCart);
-		$cart->updateItem($product, $product->id);*/
+		$this->cartRepo->updateItem($product, $product->id);
+
+		return redirect()->route('product.cartPage');
 	}
 
+
+	public function apiCart()
+	{
+		if(!Session::has('cart')){
+			return view('shop.cartPage');
+		}
+
+		$oldCart = Session::get('cart');
+		$cart = new Cart($oldCart);
+
+		return response()->json($cart);
+	}
 
 
 

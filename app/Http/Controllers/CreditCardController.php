@@ -11,8 +11,8 @@ use Stripe\Stripe;
 
 class CreditCardController extends Controller
 {
-    public function checkout(){
-
+    public function checkout()
+    {
 		if(!Session::has('cart')){
 			return redirect()->route('shop.index');
 		}
@@ -24,8 +24,8 @@ class CreditCardController extends Controller
 		return view('shop.ccCheckout', ['totalPrice'=>$totalPrice]);
 	}
 
-	public function postCheckout(Request $request){
-
+	public function postCheckout(Request $request)
+	{
 		if(!Session::has('cart')){
 			return redirect()->route('shop.index');
 		}
@@ -34,12 +34,11 @@ class CreditCardController extends Controller
 
 		\Stripe\Stripe::setApiKey("sk_test_YQiXp37W13kEJYZOZRKLQaX8");
 
-		//dd($request->all());
 		try{
 			\Stripe\Charge::create(array(
 			  "amount" => $cart->totalPrice * 100,
 			  "currency" => "usd",
-			  "source" => $request->stripeToken, // obtained with Stripe.js
+			  "source" => $request->stripeToken,
 			  "description" => "Laracart Test Charge"
 			));
 		}catch(\Exception $e){
