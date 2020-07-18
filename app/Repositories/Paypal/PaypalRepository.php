@@ -32,6 +32,11 @@ class PaypalRepository implements PaypalRepositoryInterface
 		$this->_api_context->setConfig($paypal_conf['settings']);
 	}
 
+	/**
+	 * Paypal payment
+	 * @param  array $data
+	 * @return resource, the page to redirect to
+	 */
 	public function pay($data)
 	{
 		$payer = new Payer();
@@ -99,6 +104,10 @@ class PaypalRepository implements PaypalRepositoryInterface
 			->with('error', 'Unknown error occurred');
 	}
 
+	/**
+	 * Show paypal payment status
+	 * @return resource, the page redirects to
+	 */
 	public function status()
 	{
 		$payment_id = Session::get('paypal_payment_id');

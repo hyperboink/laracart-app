@@ -17,6 +17,11 @@ class Cart
 		}
 	}
 
+	/**
+	 * Add item in the cart
+	 * @param string $item
+	 * @param int $id
+	 */
 	public function add($item, $id)
 	{
 		$storedItem = [
@@ -41,6 +46,10 @@ class Cart
 
 	}
 
+	/**
+	 * Reduce single item in the cart
+	 * @param int $id
+	 */
 	public function reduceByOne($id)
 	{
 		$key = array_search($id, array_column($this->items, 'item_id'));
@@ -56,6 +65,10 @@ class Cart
 
 	}
 
+	/**
+	 * Remove specific item in the cart
+	 * @param  int $id
+	 */
 	public function removeItem($id)
 	{
 		$key = array_search($id, array_column($this->items, 'item_id'));
@@ -65,6 +78,11 @@ class Cart
 		array_splice($this->items, $key, 1);
 	}
 
+	/**
+	 * Update item in the cart
+	 * @param  int $qty
+	 * @param  int $id
+	 */
 	public function updateItem($qty, $id){
 
 		$storedItem = [
